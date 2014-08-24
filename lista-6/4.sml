@@ -7,6 +7,5 @@ fun evalhelper([a], g, x) = a * (pow(x, g))
 fun eval (nil, x) = 0.0
   | eval (l, x) = evalhelper(l, 0, x);
 
-evalhelper([1.0, 5.0, 3.0],0,2.0);
-
-eval([1.0, 5.0, 3.0],2.0);
+(*evalhelper([1.0, 5.0, 3.0],0,2.0);*)
+(*eval([1.0, 5.0, 3.0],2.0);*)
