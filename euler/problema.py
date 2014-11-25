@@ -1,3 +1,5 @@
+import itertools
+
 ns = [13082761331670030, 91]
 ms = [[2,3,5,7,11,13,17,19,23,29,31,37,41,43], [7,13]]
 
@@ -15,7 +17,8 @@ class Problema:
     if self.dbg: print "Congruencias: "
     self.gera_congruencias()
     if self.dbg: print "Parciais: "
-    self.gera_parciais()
+    # self.gera_parciais()
+    self.combinacoes()
     if self.dbg: print "Soma: "
     return self.soma_parciais()
 
@@ -25,16 +28,15 @@ class Problema:
       self.congruencias.append(Problema.cong(n))
     if self.dbg: print self.congruencias
 
-  def gera_parciais(self):
+  def combinacoes(self):
     self.parciais = []
-    for i in range(0, len(self.congruencias)):
-      for j in range(0, len(self.congruencias)):
-        if i != j:
-          for m in self.congruencias[i]:
-            for n in self.congruencias[j]:
-              termo = Problema.teorema_chines([self.multiplos[i],self.multiplos[j]], [m,n])
-              if termo not in self.parciais and termo != 1:
-                self.parciais.append(termo)
+    combinacoes = list(itertools.product(*self.congruencias))
+    if self.dbg:
+      print combinacoes
+    for c in combinacoes:
+      termo = Problema.teorema_chines(self.multiplos, c)
+      if termo not in self.parciais and termo != 1:
+        self.parciais.append(termo)
     if self.dbg:
       self.parciais.sort()
       print self.parciais
@@ -76,8 +78,8 @@ class Problema:
     if x1 < 0: x1 += b0
     return x1
 
-ex = 1
+ex = 0 
 
 p = Problema(ns[ex], ms[ex])
-p.dbg = True
+p.dbg = False 
 print p.resolve()
